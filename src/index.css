@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+@layer components {
+  .full-screen {
+    @apply h-screen w-full text-center
+  }
+
+  .full-screen-fixed {
+    @apply fixed flex flex-col full-screen
+  }
+
+  .hover-scale {
+    @apply hover:scale-110 hover:bg-tertiary hover:text-secondary border border-primary transition-main rounded-lg font-[700]
+  }
+  
+  .input-form-style {
+    @apply w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary bg-primary_acc transition-main
+  }
+
+  .period {
+    @apply text-primary
+  }
+  
+  .transition-main {
+    transition-duration: .6s;
+  }
+
+  .anim-main {
+    animation: rise 1s ease;
+    @apply transition-main
+  }
+
+  .anim-main-delay {
+    animation: rise 1s ease;
+    animation-delay: 1s;
+    @apply transition-main
+  }
+
+  /* For sub-text on landing page */
+  .fade {
+    transition: opacity 1s ease-in-out; /* Controls the duration and easing of the transition */
+  }
+  
+  .fade.in {
+    opacity: 1; /* Fully visible */
+  }
+  
+  .fade.out {
+    opacity: 0; /* Fully transparent */
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

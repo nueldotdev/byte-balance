@@ -1,0 +1,25 @@
+.logo-container {
+  position: relative;
+  width: fit-content;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.slash {
+  background-color: #ff7b00;
+  height: 30px;
+  width: 5px;
+  margin: 0 0px 0 0px;
+  border-radius: 5px;
+  transform: translateY(0px) rotate(26deg);
+}
+
+/* .period {
+  color: #ff7b00;
+} */

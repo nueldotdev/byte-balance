@@ -1,0 +1,54 @@
+.text {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden; /* Ensures no extra space is left */
+}
+
+.letters {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 1s ease, transform 1s ease;
+  animation: appear 2s forwards;
+}
+
+/* Apply animation to disappearing letters */
+.transitioned .letters {
+  animation: disappear 2s forwards;
+}
+
+/* Apply a delay to the reappearance animation to ensure spacing adjusts */
+@keyframes disappear {
+  0% {
+      opacity: 1;
+      transform: translateX(0);
+  }
+  100% {
+      opacity: 0;
+      transform: translateX(-100px); /* Adjust based on the width of disappearing text */
+      display: none;
+  }
+}
+
+/* Apply animation to appearing letters */
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+    display: none;
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Period animation (if needed) */
+.period:nth-of-type(2) {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.period {
+  animation: disappear 1s forwards;
+}
