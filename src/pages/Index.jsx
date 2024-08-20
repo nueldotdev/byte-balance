@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Logo from '../../components/Logo/Logo'
+import Logo from '../components/Logo/Logo'
 import { Button } from '@mantine/core'
 import { NavLink } from 'react-router-dom'
-import { landingTexts } from '../../assets/text'
+import { landingTexts } from '../assets/text'
 
 const Index = () => {
 
