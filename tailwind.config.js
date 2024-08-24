@@ -14,6 +14,7 @@ module.exports = {
         tertiary2: '#E5EEE2', // Lighter Gray
         primary_acc: '#FFF8F2', // Orange Lite
         search: '#F1F1F1D6', // Search-bar Gray #f1f1f1d6
+        tertiary_acc: '#FBFBFB', // White light
       },
       fontFamily: {
         'sans': ['Rubik', 'sans-serif']

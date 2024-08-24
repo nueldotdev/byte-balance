@@ -13,6 +13,7 @@ import { Outlet } from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import Transactions from './pages/Transactions';
 
 const Layout = () => {
   return (
@@ -37,7 +38,7 @@ function App() {
           <Route path="dashboard" element={<Layout />}>
             <Route path="home" element={<Home />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
+            <Route path="transactions" element={<Transactions />} />
           </Route>
           <Route path="entry" element={<Entry />} />
         </Routes>

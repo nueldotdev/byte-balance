@@ -3,6 +3,12 @@ import Logo from "../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { signInTexts, signUpTexts } from "../assets/text";
 import { IconArrowLeft } from "@tabler/icons-react";
+import axios from "axios";
+
+
+
+
+
 
 const Entry = () => {
   const navigate = useNavigate();

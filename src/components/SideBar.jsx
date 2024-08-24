@@ -2,14 +2,14 @@ import React from "react";
 import { Stack } from "@mantine/core";
 import { GoHomeFill } from "react-icons/go";
 import { BiSolidUser } from "react-icons/bi";
-import { RiSettingsFill } from "react-icons/ri";
+import { FaSyncAlt } from "react-icons/fa";
 import { NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo/Logo";
 
 const menuItems = [
   { label: "Home", icon: GoHomeFill, path: "/dashboard/home" },
+  { label: "Transactions", icon: FaSyncAlt, path: "/dashboard/transactions" },
   { label: "Profile", icon: BiSolidUser, path: "/dashboard/profile" },
-  { label: "Settings", icon: RiSettingsFill, path: "/dashboard/settings" },
 ];
 
 
