@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { RiSearchLine } from "react-icons/ri";
 import { Avatar } from '@mantine/core';
+import { UserContext } from "../context/UserContext";
 
 function currentDate() {
   const theDate = new Date();
@@ -19,6 +20,9 @@ function currentDate() {
 
 
 function Header(props) {
+  
+  const { userDet, loading } = useContext(UserContext);
+
   return (
     <div className='flex-main w-full gap-x-10 mb-8'>
       <div className='flex justify-between items-baseline w-[50%]'>
@@ -35,7 +39,7 @@ function Header(props) {
         <Avatar
           size="md"
           radius="xl"
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
+          src={userDet.userImg}
         />
       </div>
     </div>

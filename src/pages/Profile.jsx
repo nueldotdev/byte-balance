@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 import { Avatar } from '@mantine/core';
 
 
 const Profile = () => {
+  const { userDet, loading, handleInputChange, handleSaveChanges, handleLogout } = useContext(UserContext);
+
   const [user, setUser] = useState({
     username: 'broke.billions',
     name: 'John Doe',
@@ -12,20 +15,6 @@ const Profile = () => {
     address: '123 Main St, Springfield, IL',
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
-
-  const handleSaveChanges = () => {
-    console.log('Changes saved:', user);
-    // Implement save functionality here (e.g., API call)
-  };
-
-  const handleLogout = () => {
-    console.log('User logged out');
-    // Implement logout functionality here
-  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-8">
@@ -33,10 +22,10 @@ const Profile = () => {
         <Avatar
           size={"xl"}
           radius="100%"
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80"
+          src={userDet.userImg}
         />
-        <h2 className="text-2xl font-semibold mb-2">@{user.username}</h2>
-        <p className="text-gray-600 mb-4">{user.email}</p>
+        <h2 className="text-2xl font-semibold mb-2">@{userDet.username}</h2>
+        <p className="text-gray-600 mb-4">{userDet.email}</p>
       </div>
 
       <div className="mt-6 space-y-4">
@@ -46,7 +35,7 @@ const Profile = () => {
             className="border border-gray-300 p-2 rounded-md w-3/4"
             type="text"
             name="username"
-            value={user.username}
+            value={userDet.username}
             onChange={handleInputChange}
             placeholder="Your Username"
           />
@@ -57,7 +46,7 @@ const Profile = () => {
             className="border border-gray-300 p-2 rounded-md w-3/4"
             type="text"
             name="name"
-            value={user.name}
+            value={userDet.full_name}
             onChange={handleInputChange}
             placeholder="Your Name"
           />
@@ -68,31 +57,9 @@ const Profile = () => {
             className="border border-gray-300 p-2 rounded-md w-3/4"
             type="text"
             name="email"
-            value={user.email}
+            value={userDet.email}
             onChange={handleInputChange}
             placeholder="Your Email"
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <label className="text-gray-600">Phone:</label>
-          <input
-            className="border border-gray-300 p-2 rounded-md w-3/4"
-            type="text"
-            name="phone"
-            value={user.phone}
-            onChange={handleInputChange}
-            placeholder="Your Phone number"
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <label className="text-gray-600">Address:</label>
-          <input
-            className="border border-gray-300 p-2 rounded-md w-3/4"
-            type="text"
-            name="address"
-            value={user.address}
-            onChange={handleInputChange}
-            placeholder="Your Address"
           />
         </div>
       </div>

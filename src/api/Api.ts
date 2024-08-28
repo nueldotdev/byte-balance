@@ -43,11 +43,11 @@ const header = {
 
 
 // API Service
-const apiService = {
+export const apiService = {
   /**
    * Sends a POST request to the signup endpoint to create a new user.
-   *
-   * @param {string} user_type - The type of user (always "user").
+   * 
+   * @implements {string} user_type - The type of user (always "user").
    * @param {string} full_name - The full name of the user.
    * @param {string} username - The username chosen by the user.
    * @param {string} email - The email address of the user.
@@ -115,7 +115,7 @@ const apiService = {
   ) => axios.post(endpoints.getWalletBalance, { user_id }, header),
 
 
-  // checkPin: (data: any) => axios.post(endpoints.checkPin, data),
+  checkPin: (user_id) => axios.post(endpoints.checkPin, {user_id}, header),
 
 
   /**
@@ -196,6 +196,8 @@ const apiService = {
   changePassword: (data: string) => axios.post(endpoints.changePassword, { data }, header),
 
   getProfileInfo: (user_id: number) => axios.post(endpoints.getProfileInfo, { user_id }, header),
+  
+  getUserImg: (user_id: number) => axios.post(endpoints.getUserImg, { user_id }, header),
 
 
   /**
@@ -208,3 +210,5 @@ const apiService = {
     username: string
   ) => axios.post(endpoints.validateUser, { username }, header)
 };
+
+

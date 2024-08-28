@@ -12,7 +12,7 @@ import Entry from "./pages/Entry";
 import { Outlet } from "react-router-dom";
 import SideBar from "./components/SideBar";
 import Profile from './pages/Profile';
-import Settings from './pages/Settings';
+import Verified from './pages/Verified';
 import Transactions from './pages/Transactions';
 
 const Layout = () => {
@@ -41,6 +41,7 @@ function App() {
             <Route path="transactions" element={<Transactions />} />
           </Route>
           <Route path="entry" element={<Entry />} />
+          <Route path="verified-email" element={<Verified />} />
         </Routes>
       </Router>
     </MantineProvider>
