@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Logo from '../components/Logo/Logo'
 import { NavLink } from 'react-router-dom'
-import { landingTexts } from '../assets/text'
+import { isauthenticated } from "../../Services";
+
 
 const Verified = () => {
+
+  useEffect(() => {
+    if (isauthenticated()) {
+      window.location.href = "/dashboard/home"
+    }
+  }, [])  
 
   return (
     <div className='full-screen-fixed bg-primary_acc'>

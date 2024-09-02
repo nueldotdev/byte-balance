@@ -1,19 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { Avatar } from '@mantine/core';
-
+import { useNavigate } from "react-router-dom";
+import {isauthenticated} from "../../Services";
 
 const Profile = () => {
-  const { userDet, loading, handleInputChange, handleSaveChanges, handleLogout } = useContext(UserContext);
+  const { userDet, handleInputChange, handleSaveChanges } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    username: 'broke.billions',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et metus nec metus bibendum feugiat.',
-    phone: '555-555-5555',
-    address: '123 Main St, Springfield, IL',
-  });
+  useEffect(() => {
+    if (isauthenticated()) {
+    } else {
+      window.location.href = "/entry?action=signin"
+    }
+  }, [])
+
+  const handleLogout = () => {
+    console.log('User logged out');
+    localStorage.clear();
+    navigate('/entry?action=signin');
+    // Implement logout functionality here
+  };
 
 
   return (

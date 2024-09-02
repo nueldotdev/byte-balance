@@ -25,17 +25,17 @@ function Header(props) {
 
   return (
     <div className='flex-main w-full gap-x-10 mb-8'>
-      <div className='flex justify-between items-baseline w-[50%]'>
+      <div className='flex justify-between items-baseline w-full'>
         <h1 className='text-2xl font-semibold'>{props.title}</h1>
 
         {/* Date goes in here */}
         <p className="text-sm">{currentDate()}</p>
       </div>
-      <div className='flex-main w-[50%] gap-x-16'>
-        <div className="w-full flex justify-items-start items-center gap-x-2 rounded-md bg-search p-1">
+      <div className='flex-main gap-x-16'>
+        {/* <div className="w-full flex justify-items-start items-center gap-x-2 rounded-md bg-search p-1">
           <RiSearchLine size={20} className='text-secondary' />
           <input type="text" placeholder="Search" className="bg-transparent text-base placeholder:text-secondary w-full border-none focus:outline-none " />
-        </div> 
+        </div>  */}
         <Avatar
           size="md"
           radius="xl"

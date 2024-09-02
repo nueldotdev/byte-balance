@@ -1,5 +1,5 @@
 export function isauthenticated(){
-  var authenticated = localStorage.getItem("userid")?true:false;
+  var authenticated = localStorage.getItem("user_id")?true:false;
   return authenticated;
 }
 export function isActive(myroute){

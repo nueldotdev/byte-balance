@@ -3,11 +3,20 @@ import Logo from '../components/Logo/Logo'
 import { Button } from '@mantine/core'
 import { NavLink } from 'react-router-dom'
 import { landingTexts } from '../assets/text'
+import {isauthenticated} from "../../Services";
 
 const Index = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true); // State to control fade in/out
+  console.log(isauthenticated())
+
+    useEffect(() => {
+    if (isauthenticated()) {
+      window.location.href = "/dashboard/home"
+    }
+  }, [])
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {

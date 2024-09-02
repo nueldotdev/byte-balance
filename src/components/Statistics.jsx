@@ -5,8 +5,7 @@ const data = [
   {
     name: 'Page A',
     Outgoing: 4000,
-    Incoming: 2400,
-    amt: 2400,
+    Incoming: 2400
   },
   {
     name: 'Page B',
@@ -59,7 +58,7 @@ export default function Statistics(props) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />

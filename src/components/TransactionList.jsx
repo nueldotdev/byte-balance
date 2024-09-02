@@ -1,29 +1,16 @@
 import { Avatar } from '@mantine/core';
-import React from 'react'
+import React, {useContext} from 'react'
+import { UserContext } from "../context/UserContext";
 import { FaArrowRight } from "react-icons/fa6";
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
-const lastThreeTransactions = [
-  {
-    id: 1,
-    title: "Received",
-    amount: 1000,
-    date: new Date()
-  },
-  {
-    id: 2,
-    title: "Deposit",
-    amount: 1000,
-    date: new Date(2024, 8, 22),
-  },
-  {
-    id: 3,
-    title: "Sent",
-    amount: 1000,
-    date: new Date(2024, 2, 22),
-  },
-]
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
 function currentDate(theDate) {
@@ -38,6 +25,19 @@ function currentDate(theDate) {
 
 
 export default function TransactionList() {
+
+  const { transactions } = useContext(UserContext);
+  const [usedArr, setUsedArr] = useState([]);
+
+  useEffect(() => {
+    if (transactions.length > 3) { 
+      let arr = transactions.slice(-3);
+      setUsedArr(arr)
+    } else {
+      setUsedArr(transactions);
+    }
+  }, [transactions])
+
   return (
     <div className="w-full h-full flex flex-col gap-y-2">
       <div className='w-full flex justify-between items-center'>
@@ -47,13 +47,15 @@ export default function TransactionList() {
         </NavLink>
       </div>
       <div className="w-full">
-        {lastThreeTransactions.map(transaction => (
-          <div key={transaction.id} className="border-2 border-secondary rounded-lg p-4 mb-1 w-full flex justify-between items-center">
-            <div className='flex items-center justify-start gap-2'>
-              <Avatar />
-              <div className='text-left'>
-                <p className='text-sm font-bold'>{transaction.title}</p>
-                <p className='text-xs font-medium text-secondary2'>₦{transaction.amount}</p>
+        {usedArr.map((transaction, index) => (
+          <div key={index} className="border-2 border-secondary rounded-lg p-4 mb-1 w-full flex justify-between items-center">
+            <div className='flex items-center justify-between gap-2 w-full'>
+              <div>
+                <h1 className='text-lg font-bold'>{capitalizeFirstLetter(transaction.transaction_type)}</h1>
+              </div>
+              <div>
+                <p className='text-base font-medium text-secondary2'>₦{transaction.amount}</p>
+                <p className='text-xs font-light text-sec_accent'>{currentDate(new Date(transaction.transaction_date))}</p>
               </div>
             </div>
           </div>

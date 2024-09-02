@@ -1,8 +1,9 @@
-import { LoadingOverlay, Modal, TextInput  } from '@mantine/core';
+import { LoadingOverlay, Modal, PinInput  } from '@mantine/core';
 import React, { useContext, useState } from 'react';
 import { BiSolidCoinStack } from "react-icons/bi";
 import { HiMiniArrowDownCircle, HiMiniArrowUpCircle } from 'react-icons/hi2';
 import { apiService } from '../api/Api';
+import { notifications } from '@mantine/notifications';
 import { UserContext } from "../context/UserContext";
 
 
@@ -10,12 +11,12 @@ const WalletBox = () => {
   const [depoModal, setDepoModal] = useState(false);
   const [action, setAction] = useState("deposit" || "transfer")
 
-  const { userDet, walletBal } = useContext(UserContext);
+  const { userDet, walletBal, incoming, outgoing } = useContext(UserContext);
 
   var cash = [
-    { label: "in", amount: 12000, icon: <HiMiniArrowDownCircle size={17} className="text-green-500" /> },
+    { label: "in", amount: incoming, icon: <HiMiniArrowDownCircle size={17} className="text-green-500" /> },
     { label: "balance", amount: walletBal, icon: <BiSolidCoinStack size={16} className="text-primary" /> },
-    { label: "out", amount: 1700, icon: <HiMiniArrowUpCircle size={17} className="text-blue-500" />  }
+    { label: "out", amount: outgoing, icon: <HiMiniArrowUpCircle size={17} className="text-blue-500" />  }
   ]
 
   const handleDepo = () => {
@@ -65,7 +66,6 @@ const WalletBox = () => {
       <Modal
         opened={depoModal}
         onClose={() => setDepoModal(false)}
-        title=""
         overlayProps={{
           backgroundOpacity: 0.55,
           blur: 3,
@@ -96,7 +96,6 @@ const DepositForm = () => {
     console.log(`Depositing ${amount} to wallet`);
     const deposit = await apiService.depositMoney(amount, userDet.user_id);
     const depositData = deposit.data;
-    console.log(depositData)
     handlePayStack(depositData.authorization_url)
 
     // Reset the form and error state after deposit
@@ -110,7 +109,7 @@ const DepositForm = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+    <div className="max-w-md mx-auto bg-white p-6 rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Deposit Funds</h1>
       
       <div className="mb-4">
@@ -145,24 +144,6 @@ const TransferForm = () => {
   const [receiver, setReceiver] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState('');
-  
-  const handleDeposit = async () => {
-    if (!amount || parseFloat(amount) <= 0) {
-      setError('Please enter a valid amount.');
-      return;
-    }
-
-    // Here, you'd usually send the deposit request to your backend
-    console.log(`Depositing ${amount} to wallet`);
-    const deposit = await apiService.depositMoney(amount, userDet.user_id);
-    const depositData = deposit.data;
-    console.log(depositData)
-    // handlePayStack(depositData.authorization_url)
-
-    // Reset the form and error state after deposit
-    setAmount(0);
-    setError('');
-  };
 
 
   const validateUser = async () => {
@@ -181,12 +162,28 @@ const TransferForm = () => {
   }
 
   const handleTransfer = async () => {
+    if (!amount || parseFloat(amount) <= 0) {
+      setError('Please enter a valid amount.');
+      return;
+    }
+
     try {
       const transfer = await apiService.sendMoney(userDet.user_id, receiver, amount, pin)
       const transferData = transfer.data;
+      console.log(transferData)
+      notifications.show({
+        title: 'Transfer Successful',
+        color: '#E34A32',
+        message: 'You\'ve just spent money💸',
+      })
 
     } catch (error){
       console.log(error)
+      notifications.show({
+        title: 'Transfer Unsuccessful',
+        color: 'red',
+        message: 'No way, your bad at this too!?🙄',
+      })
     }
   }
 
@@ -196,12 +193,12 @@ const TransferForm = () => {
 
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-ld mt-6">
+    <div className="max-w-md mx-auto bg-white p-6 rounded-ld">
       <h1 className="text-2xl font-bold mb-4">Transfer Funds</h1>
       
       <div className="mb-4">
         <label className="block text-gray-700 font-semibold mb-2">To:</label>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-1">
           <input
             value={receiver}
             onChange={(e) => setReceiver(e.target.value)}
@@ -215,18 +212,25 @@ const TransferForm = () => {
           {message}
         </div>
         
-        <label className="block text-gray-700 font-semibold mb-2">Amount:</label>
+        <label className="block text-gray-700 font-semibold mb-1">Amount:</label>
         <input
           type="number"
-          value={pin}
-          onChange={(e) => setPin(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="w-full px-4 py-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="Enter amount"
         />
+        <label className="block text-gray-700 font-semibold">Pin:</label>
+        <PinInput
+            size="xl"
+            length={4}
+            inputMode="numeric"
+            onChange={setPin}
+          />
         {error && <p className="text-red-500 mt-2">{error}</p>}
       </div>
       
-      <div className="mt-6">
+      <div className="mt-2">
         <button
           onClick={handleTransfer}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"

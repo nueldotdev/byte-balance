@@ -1,11 +1,15 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
+// import { useContext } from "react";
 import Logo from "../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { signInTexts, signUpTexts } from "../assets/text";
 import { PinInput, Modal } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
-
+import { notifications } from '@mantine/notifications';
 import { apiService } from "../api/Api";
+import { isauthenticated } from "../../Services";
+import { UserContext } from "../context/UserContext";
+
 
 // Memoized Signup component to prevent unnecessary re-renders
 const Signup = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
@@ -179,8 +183,16 @@ const SignIn = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
 
 const Entry = () => {
   const [tokenModal, setTokenModal] = useState(false);
-
+  const { getAll } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(isauthenticated())
+    if (isauthenticated()) {
+      window.location.href = "/dashboard/home"
+    }
+  }, [])
+
   const [action, setAction] = useState("signup");
 
   const [userDet, setUserDet] = useState({
@@ -222,10 +234,20 @@ const Entry = () => {
         )
         .then((response) => {
           console.log(response.data);
+          notifications.show({
+            title: 'Sign Up Successful',
+            color: '#E34A32',
+            message: 'Please verify your email address',
+          })
         })
         .catch((error) => console.error(error));
     } else {
       console.log("Passords don't match!");
+      notifications.show({
+        title: 'Passwords do not match',
+        color: 'red',
+        message: 'Type well you dummy',
+      })
     }
   };
 
@@ -237,11 +259,26 @@ const Entry = () => {
         const data = response.data;
         
         localStorage.setItem("email", data.email);
-        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("user_id", data.user_id); 
+
+        getAll()
+
+        notifications.show({
+          title: 'Sign In Successful',
+          color: '#E34A32',
+          message: 'YAY! You have signed in successfully 🌟',
+        })
 
         navigate('/dashboard/home')
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error)
+        notifications.show({
+          title: 'Sign In Failed',
+          color: 'red',
+          message: 'Check your info stupid!',
+        })
+      });
   };
 
   const verifyTokenReq = () => {
@@ -254,11 +291,20 @@ const Entry = () => {
         userDet.password
       )
       .then((response) => {
-        console.log(response.data);
+        notifications.show({
+          title: 'Email Verified',
+          color: '#E34A32',
+          message: 'YAY! Your email has been verified 🌟',
+        })
         navigate("/verified-email")
       })
       .catch((error) => {
         console.error(error);
+        notifications.show({
+          title: 'Email Verification Failed',
+          color: 'red',
+          message: 'Something went wrong, please try again!',
+        })
       });
   };
 

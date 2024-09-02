@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // pages
@@ -7,6 +8,7 @@ import Index from "./pages/Index";
 
 import './App.css'
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import Home from "./pages/Home";
 import Entry from "./pages/Entry";
 import { Outlet } from "react-router-dom";
@@ -32,6 +34,7 @@ const Layout = () => {
 function App() {
   return (
     <MantineProvider>
+      <Notifications />
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
