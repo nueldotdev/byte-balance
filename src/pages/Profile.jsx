@@ -24,7 +24,8 @@ const Profile = () => {
 
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-8">
+    <div className="flex justify-center items-center h-full w-full">
+       <div className="w-[80%] p-6 bg-white rounded-lg shadow-lg">
       <div className="flex flex-col items-center">
         <Avatar
           size={"xl"}
@@ -36,10 +37,10 @@ const Profile = () => {
       </div>
 
       <div className="mt-6 space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center max-sm:flex-col max-sm:items-start">
           <label className="text-gray-600">Username:</label>
           <input
-            className="border border-gray-300 p-2 rounded-md w-3/4"
+            className="border border-gray-300 p-2 rounded-md w-3/4 max-sm:w-full"
             type="text"
             name="username"
             value={userDet.username}
@@ -47,10 +48,10 @@ const Profile = () => {
             placeholder="Your Username"
           />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center max-sm:flex-col max-sm:items-start">
           <label className="text-gray-600">Name:</label>
           <input
-            className="border border-gray-300 p-2 rounded-md w-3/4"
+            className="border border-gray-300 p-2 rounded-md w-3/4 max-sm:w-full"
             type="text"
             name="name"
             value={userDet.full_name}
@@ -58,10 +59,10 @@ const Profile = () => {
             placeholder="Your Name"
           />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center max-sm:flex-col max-sm:items-start">
           <label className="text-gray-600">Email:</label>
           <input
-            className="border border-gray-300 p-2 rounded-md w-3/4"
+            className="border border-gray-300 p-2 rounded-md w-3/4 max-sm:w-full"
             type="text"
             name="email"
             value={userDet.email}
@@ -85,6 +86,7 @@ const Profile = () => {
           Logout
         </button>
       </div>
+    </div>
     </div>
   );
 };

@@ -30,7 +30,7 @@ const Signup = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
 
   return (
     <div className="flex bg-tertiary2 min-w-full min-h-full">
-      <div className="w-1/2 bg-secondary text-white flex flex-col justify-center items-center p-8">
+      <div className="w-1/2 bg-secondary text-white flex max-sm:hidden flex-col justify-center items-center p-8">
         <div className="mb-8">
           <Logo className="text-white" />
         </div>
@@ -51,7 +51,7 @@ const Signup = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
         </div>
       </div>
 
-      <div className="w-1/2 bg-primary_acc flex flex-col justify-center items-center p-8">
+      <div className="w-1/2 max-sm:w-full bg-primary_acc flex flex-col justify-center items-center p-8">
         <h1 className="text-3xl font-bold text-primary mb-6">Create Account</h1>
         <p className="text-gray-500">Sign up to get started</p>
         <p className="mb-4 text-gray-500">Use your email for registration</p>
@@ -102,6 +102,16 @@ const Signup = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
           >
             SIGN UP
           </button>
+
+          <div className="hidden max-sm:block mt-4">
+          <p className="text-gray-500 mb-2">Already have an account?</p>
+          <button
+            className="px-8 py-2 border-2 border-secondary2 text-secondary2 rounded-full hover:bg-white hover:text-primary transition-main"
+            onClick={() => setAction("signin")}
+          >
+            SIGN IN
+          </button>
+        </div>
         </div>
       </div>
     </div>
@@ -127,7 +137,7 @@ const SignIn = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
 
   return (
     <div className="flex flex-row-reverse bg-tertiary2 min-w-full min-h-full">
-      <div className="w-1/2 bg-secondary text-white flex flex-col justify-center items-center p-8">
+      <div className="w-1/2 bg-secondary text-white max-sm:hidden flex flex-col justify-center items-center p-8">
         <div className="mb-8">
           <Logo className="text-white" />
         </div>
@@ -148,7 +158,7 @@ const SignIn = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
         </div>
       </div>
 
-      <div className="w-1/2 bg-primary_acc flex flex-col justify-center items-center p-8">
+      <div className="w-1/2 max-sm:w-full bg-primary_acc flex flex-col justify-center items-center p-8">
         <h1 className="text-3xl font-bold text-primary mb-6">Sign In Now</h1>
         <p className="text-gray-500">Already have an account?</p>
         <p className="mb-4 text-gray-500">
@@ -175,6 +185,15 @@ const SignIn = memo(({ userDet, handleInputChange, setAction, apiFunc }) => {
             onClick={apiFunc}>
             SIGN IN
           </button>
+          <div className="hidden max-sm:block mt-4">
+            <p className="text-gray-500 mb-2">Don't have an account?</p>
+            <button
+              className="px-8 py-2 border-2 border-secondary2 text-secondary2 rounded-full hover:bg-white hover:text-primary transition-main"
+              onClick={() => setAction("signup")}
+            >
+            SIGN UP
+          </button>
+        </div>
         </div>
       </div>
     </div>

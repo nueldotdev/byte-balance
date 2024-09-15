@@ -16,14 +16,36 @@ import SideBar from "./components/SideBar";
 import Profile from './pages/Profile';
 import Verified from './pages/Verified';
 import Transactions from './pages/Transactions';
+import { FaBarsStaggered } from "react-icons/fa6"; 
 
 const Layout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="full-screen flex fixed">
-      <div className="w-[20%] h-full">
+    <div className="full-screen flex flex-col md:flex-row fixed">
+      {/* Sidebar */}
+      <div
+        className={`${
+          isSidebarOpen ? "w-[60%]" : "w-0"
+        } md:w-[25%] h-full fixed md:relative transition-width duration-300 overflow-hidden bg-gray-800 z-50`}
+      >
         <SideBar />
       </div>
-      <div className="w-full h-full overflow-auto">
+
+      {/* Main Content Area */}
+      <div className="w-full flex-col h-full overflow-auto">
+        {/* Toggle Button for Small Screens */}
+        <div className="z-[6000] flex justify-end md:hidden px-4 pt-4">
+          <FaBarsStaggered
+            className="h-8 w-8 text-gray-800 cursor-pointer"
+            onClick={toggleSidebar}
+          />
+        </div>
+
         <Outlet />
       </div>
     </div>
